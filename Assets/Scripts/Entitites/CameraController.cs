@@ -42,7 +42,7 @@ public class CameraController : Entity
             Physics.Raycast(ray, out hit);
             if(hit.collider != null)
             {
-                if(hit.collider.gameObject.GetComponent<SelectableElement>() != null)
+                if(hit.collider.gameObject.GetComponent<SelectableElement>() != null && hit.collider.gameObject.GetComponent<SelectableElement>() != SelectedEntity)
                 {
                     SelectableElement clickedEnt = hit.collider.gameObject.GetComponent<SelectableElement>();
                     if(SelectedEntity != null && clickedEnt != SelectedEntity)

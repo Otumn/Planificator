@@ -11,6 +11,17 @@ public class GizmoController : Entity
 
     private int typeIndex = 1;
 
+    protected override void Update()
+    {
+        base.Update();
+        ControlsManagement();
+    }
+
+    private void ControlsManagement()
+    {
+        if (Input.GetKeyDown(KeyCode.Space)) SwitchType();
+    }
+
     public override void OnEntitySelected(SelectableElement selectedEntity)
     {
         base.OnEntitySelected(selectedEntity);
