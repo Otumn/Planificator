@@ -5,6 +5,23 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameInstance gameInstance = new GameInstance();
+    public static GizmoController gizmoController;
+    public static SceneParameters sceneParameters;
+    public static CameraController camController;
+    public static Camera mainCamera;
+    private void Start()
+    {
+        InitializeManagers();
+    }
+
+    private void InitializeManagers()
+    {
+        gizmoController = GameObject.FindObjectOfType<GizmoController>();
+        sceneParameters = GameObject.FindObjectOfType<SceneParameters>();
+        camController = GameObject.FindObjectOfType<CameraController>();
+        mainCamera = camController.cam;
+        gameInstance.CallOnManagersInitialized();
+    }
 
 }
 
@@ -26,6 +43,14 @@ public class GameInstance
     #endregion
 
     #region entity events
+
+    public void CallOnManagersInitialized()
+    {
+        for (int i = 0; i < entities.Count; i++)
+        {
+            entities[i].OnManagersInitialized();
+        }
+    }
 
     public void CallOnEntitySelected(SelectableElement sEntity)
     {

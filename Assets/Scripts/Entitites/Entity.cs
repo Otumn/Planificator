@@ -30,6 +30,11 @@ public class Entity : MonoBehaviour
 
     #region Entity callbacks
 
+    public virtual void OnManagersInitialized()
+    {
+
+    }
+
     public virtual void OnEntitySelected(SelectableElement selectedEntity)
     {
 

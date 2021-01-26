@@ -9,11 +9,15 @@ public class CameraController : Entity
     public float zoomRate = 1;
     public float maxZoom = 50f;
 
+    private bool isMovingGizmo = false;
+    private SelectableGizmo gizmo;
+
     protected override void Update()
     {
         base.Update();
         MovementManagement();
-        SelectionManagement();
+        ElementSelectionManagement();
+        GizmoSelectionManagement();
     }
 
     private void MovementManagement()
@@ -29,7 +33,7 @@ public class CameraController : Entity
         }
     }
 
-    private void SelectionManagement()
+    private void ElementSelectionManagement()
     {
         if(Input.GetMouseButtonDown(0))
         {
@@ -55,6 +59,37 @@ public class CameraController : Entity
                     SelectedEntity.UnSelect();
                 }
             }
+        }
+    }
+
+    private void GizmoSelectionManagement()
+    {
+        if (Input.GetMouseButtonDown(0) && !isMovingGizmo)
+        {
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            Physics.Raycast(ray, out hit);
+            if (hit.collider != null)
+            {
+                if (hit.collider.gameObject.GetComponent<SelectableGizmo>() != null)
+                {
+                    gizmo = hit.collider.gameObject.GetComponent<SelectableGizmo>();
+                    gizmo.OnGizmoDown();
+                    isMovingGizmo = true;
+                }
+            }
+        }
+        
+        if(isMovingGizmo)
+        {
+            gizmo.OnGizmoMoved();
+        }
+        
+        if(Input.GetMouseButtonUp(0) && isMovingGizmo)
+        {
+            gizmo.OnGizmoUp();
+            gizmo = null;
+            isMovingGizmo = false;
         }
     }
 
