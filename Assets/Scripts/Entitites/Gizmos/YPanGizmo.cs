@@ -4,14 +4,6 @@ using UnityEngine;
 
 public class YPanGizmo : SelectableGizmo
 {
-    private Vector3 entPosOnSelect;
-
-    public override void OnGizmoDown()
-    {
-        base.OnGizmoDown();
-        entPosOnSelect = GameManager.gameInstance.SelectedEntity.transform.position;
-    }
-
 
     public override void OnGizmoMoved()
     {

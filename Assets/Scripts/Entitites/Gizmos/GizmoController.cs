@@ -56,7 +56,7 @@ public class GizmoController : Entity
                 panGO.SetActive(false);
                 rotateGO.SetActive(false);
                 scaleGO.SetActive(false);
-                break;
+                return;
 
             case GizmoType.Panning:
                 panGO.SetActive(true);
