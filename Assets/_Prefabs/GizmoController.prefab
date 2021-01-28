@@ -846,6 +846,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48f38d67c92818e4eb91e706b9037814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curves: {fileID: 11400000, guid: 62b129d716fab734fa580a8735419c5c, type: 2}
 --- !u!212 &8301767954447085504
 SpriteRenderer:
   m_ObjectHideFlags: 0

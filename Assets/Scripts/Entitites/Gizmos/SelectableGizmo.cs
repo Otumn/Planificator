@@ -29,4 +29,7 @@ public class SelectableGizmo : Entity
     {
 
     }
+
+    protected SelectableElement SelectedEntity { get => GameManager.gameInstance.SelectedEntity; set => GameManager.gameInstance.SelectedEntity = value; }
+
 }

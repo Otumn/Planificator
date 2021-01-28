@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class YScaleGizmo : SelectableGizmo
 {
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, 0, -GameManager.gameInstance.SelectedEntity.transform.rotation.eulerAngles.y));
+    }
+
     public override void OnGizmoMoved()
     {
         base.OnGizmoMoved();
