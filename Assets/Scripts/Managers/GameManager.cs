@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameInstance gameInstance = new GameInstance();
-    public static GizmoController gizmoController;
+    public static TransformTool gizmoController;
     public static SceneParameters sceneParameters;
     public static CameraController camController;
     public static Camera mainCamera;
@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 
     private void InitializeManagers()
     {
-        gizmoController = GameObject.FindObjectOfType<GizmoController>();
+        gizmoController = GameObject.FindObjectOfType<TransformTool>();
         sceneParameters = GameObject.FindObjectOfType<SceneParameters>();
         camController = GameObject.FindObjectOfType<CameraController>();
         mainCamera = camController.cam;

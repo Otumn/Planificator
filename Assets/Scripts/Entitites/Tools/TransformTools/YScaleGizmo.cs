@@ -13,11 +13,17 @@ public class YScaleGizmo : SelectableGizmo
     public override void OnGizmoMoved()
     {
         base.OnGizmoMoved();
-        float dist = Vector3.Distance(mousePosOnSelection, Input.mousePosition) * 0.01f * ((Input.mousePosition - mousePosOnSelection).normalized.y);
+
+        float dist = Vector3.Distance(mousePosOnSelection, Input.mousePosition);
+        Vector3 dirVector = (Input.mousePosition - mousePosOnSelection);
+        dirVector.z = dirVector.y;
+        dirVector.y = 0;
+        dirVector = dirVector.normalized;
+        float secondValue = Vector3.Dot(transform.up, dirVector) * dist * 0.01f;
+
         GameManager.gameInstance.SelectedEntity.transform.localScale = new Vector3(
             entScaleOnSelect.x,
             entScaleOnSelect.y,
-            entScaleOnSelect.z + dist);
-        Debug.Log(dist);
+            entScaleOnSelect.z + secondValue);
     }
 }

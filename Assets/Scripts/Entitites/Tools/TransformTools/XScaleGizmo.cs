@@ -15,13 +15,17 @@ public class XScaleGizmo : SelectableGizmo
     public override void OnGizmoMoved()
     {
         base.OnGizmoMoved();
-        float dist = Vector3.Distance(transform.position, GameManager.mainCamera.ScreenToWorldPoint(Input.mousePosition));
-        float oldValue = Vector3.Distance(mousePosOnSelection, Input.mousePosition) * 0.01f * ((Input.mousePosition - mousePosOnSelection).normalized.x);
-        float secondValue = Vector3.Dot(-transform.up * dist, (GameManager.mainCamera.ScreenToWorldPoint(Input.mousePosition) - transform.position));
+
+        float dist = Vector3.Distance(mousePosOnSelection, Input.mousePosition);
+        Vector3 dirVector = (Input.mousePosition - mousePosOnSelection);
+        dirVector.z = dirVector.y;
+        dirVector.y = 0;
+        dirVector = dirVector.normalized;
+        float secondValue = Vector3.Dot(-transform.up, dirVector) * dist * 0.01f;
+
         GameManager.gameInstance.SelectedEntity.transform.localScale = new Vector3(
-            entScaleOnSelect.x + oldValue,
+            entScaleOnSelect.x + secondValue,
             entScaleOnSelect.y,
             entScaleOnSelect.z);
-        Debug.Log(dist);
     }
 }

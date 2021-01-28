@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GizmoController : Entity
+public class TransformTool : Entity
 {
     public GizmoType currentType;
     public GameObject panGO;

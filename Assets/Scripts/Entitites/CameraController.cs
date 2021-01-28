@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraController : Entity
 {
+    public Tool currentTool;
     public Camera cam;
     public float panSpeed = 0.01f;
     public float zoomRate = 1;
@@ -37,9 +38,7 @@ public class CameraController : Entity
     {
         if(Input.GetMouseButtonDown(0))
         {
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            Physics.Raycast(ray, out hit);
+            RaycastHit hit = ClicRaycast();
             if(hit.collider != null)
             {
                 if(hit.collider.gameObject.GetComponent<SelectableElement>() != null && hit.collider.gameObject.GetComponent<SelectableElement>() != SelectedEntity)
@@ -66,9 +65,7 @@ public class CameraController : Entity
     {
         if (Input.GetMouseButtonDown(0) && !isMovingGizmo)
         {
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            Physics.Raycast(ray, out hit);
+            RaycastHit hit = ClicRaycast();
             if (hit.collider != null)
             {
                 if (hit.collider.gameObject.GetComponent<SelectableGizmo>() != null)
@@ -91,6 +88,14 @@ public class CameraController : Entity
             gizmo = null;
             isMovingGizmo = false;
         }
+    }
+
+    public RaycastHit ClicRaycast()
+    {
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        Physics.Raycast(ray, out hit);
+        return hit;
     }
 
     private SelectableElement SelectedEntity { get => GameManager.gameInstance.SelectedEntity; set => GameManager.gameInstance.SelectedEntity = value; }
