@@ -841,7 +841,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2011004092885704854, guid: 61338c3f8ed948d4db05b2bcb534bdd1, type: 3}
       propertyPath: m_Name
-      value: GizmoController
+      value: TransformTool
       objectReference: {fileID: 0}
     - target: {fileID: 2011004092885704855, guid: 61338c3f8ed948d4db05b2bcb534bdd1, type: 3}
       propertyPath: m_LocalPosition.x

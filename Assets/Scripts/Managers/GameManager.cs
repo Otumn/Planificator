@@ -69,6 +69,14 @@ public class GameInstance
             entities[i].OnEntityUnSelected(unsEntity);
         }
     }
+    
+    public void CallOnToolSelected(Tool tool)
+    {
+        for (int i = 0; i < entities.Count; i++)
+        {
+            entities[i].OnToolSelected(tool);
+        }
+    }
 
     #endregion
 
