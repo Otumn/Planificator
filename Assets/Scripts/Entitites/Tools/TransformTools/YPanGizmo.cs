@@ -14,7 +14,7 @@ public class YPanGizmo : SelectableGizmo
             entPosOnSelect.y,
             GameManager.mainCamera.ScreenToWorldPoint(Input.mousePosition).z + mouseToCenterVector.z);
 
-        GameManager.gizmoController.UpdateGizmos();
+        GameManager.toolsManager.transformTool.UpdateGizmos();
 
     }
 }

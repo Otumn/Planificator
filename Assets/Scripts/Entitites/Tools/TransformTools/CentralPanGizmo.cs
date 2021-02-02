@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CentralPanGizmo : SelectableGizmo
 {
-
-
     public override void OnGizmoMoved()
     {
         base.OnGizmoMoved();
@@ -15,7 +13,6 @@ public class CentralPanGizmo : SelectableGizmo
             entPosOnSelect.y,
             GameManager.mainCamera.ScreenToWorldPoint(Input.mousePosition).z + mouseToCenterVector.z);
 
-        GameManager.gizmoController.UpdateGizmos();
-
+        GameManager.toolsManager.transformTool.UpdateGizmos();
     }
 }

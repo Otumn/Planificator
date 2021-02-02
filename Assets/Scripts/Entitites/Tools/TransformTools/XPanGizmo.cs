@@ -14,7 +14,7 @@ public class XPanGizmo : SelectableGizmo
             entPosOnSelect.y,
             entPosOnSelect.z);
 
-        GameManager.gizmoController.UpdateGizmos();
+        GameManager.toolsManager.transformTool.UpdateGizmos();
 
     }
 }

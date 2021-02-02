@@ -5,10 +5,12 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameInstance gameInstance = new GameInstance();
-    public static TransformTool gizmoController;
     public static SceneParameters sceneParameters;
     public static CameraController camController;
+    public static ToolsManager toolsManager;
     public static Camera mainCamera;
+
+
     private void Start()
     {
         InitializeManagers();
@@ -16,9 +18,9 @@ public class GameManager : MonoBehaviour
 
     private void InitializeManagers()
     {
-        gizmoController = GameObject.FindObjectOfType<TransformTool>();
         sceneParameters = GameObject.FindObjectOfType<SceneParameters>();
         camController = GameObject.FindObjectOfType<CameraController>();
+        toolsManager = GameObject.FindObjectOfType<ToolsManager>();
         mainCamera = camController.cam;
         gameInstance.CallOnManagersInitialized();
     }
@@ -27,6 +29,7 @@ public class GameManager : MonoBehaviour
 
 public class GameInstance
 {
+    private Tool currentTool;
     private List<Entity> entities = new List<Entity>();
     private SelectableElement selectedEntity;
 
@@ -72,6 +75,7 @@ public class GameInstance
     
     public void CallOnToolSelected(Tool tool)
     {
+        currentTool = tool;
         for (int i = 0; i < entities.Count; i++)
         {
             entities[i].OnToolSelected(tool);
@@ -82,4 +86,5 @@ public class GameInstance
 
     public SelectableElement SelectedEntity { get => selectedEntity; set => selectedEntity = value; }
     public List<Entity> Entities { get => entities; set => entities = value; }
+    public Tool CurrentTool { get => currentTool; set => currentTool = value; }
 }

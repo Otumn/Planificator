@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class XScaleGizmo : SelectableGizmo
 {
-    public GizmoCurves curves;
-
     protected override void OnEnable()
     {
         base.OnEnable();
