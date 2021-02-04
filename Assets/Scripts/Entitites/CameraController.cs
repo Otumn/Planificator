@@ -4,21 +4,39 @@ using UnityEngine;
 
 public class CameraController : Entity
 {
-    public Tool currentTool;
     public Camera cam;
     public float panSpeed = 0.01f;
     public float zoomRate = 1;
     public float maxZoom = 50f;
 
-    private bool isMovingGizmo = false;
-    private SelectableGizmo gizmo;
-
     protected override void Update()
     {
         base.Update();
         MovementManagement();
-        ElementSelectionManagement();
-        GizmoSelectionManagement();
+        CurrentToolControl();
+    }
+
+    private void CurrentToolControl()
+    {
+        if(CurrentTool != null)
+        {
+            if(Input.GetMouseButtonDown(0))
+            {
+                CurrentTool.ToolLeftClickDownAction();
+            }
+            if(Input.GetMouseButton(0))
+            {
+                CurrentTool.ToolLeftClickHeldAction();
+            }
+            if(Input.GetMouseButtonUp(0))
+            {
+                CurrentTool.ToolLeftClickUpAction();
+            }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                CurrentTool.ToolSpaceBarAction();
+            }
+        }
     }
 
     private void MovementManagement()
@@ -34,62 +52,6 @@ public class CameraController : Entity
         }
     }
 
-    private void ElementSelectionManagement()
-    {
-        if(Input.GetMouseButtonDown(0))
-        {
-            RaycastHit hit = ClicRaycast();
-            if(hit.collider != null)
-            {
-                if(hit.collider.gameObject.GetComponent<SelectableElement>() != null && hit.collider.gameObject.GetComponent<SelectableElement>() != SelectedEntity)
-                {
-                    SelectableElement clickedEnt = hit.collider.gameObject.GetComponent<SelectableElement>();
-                    if(SelectedEntity != null && clickedEnt != SelectedEntity)
-                    {
-                        SelectedEntity.UnSelect();
-                    }
-                    clickedEnt.Select();
-                }
-            }
-            else
-            {
-                if(SelectedEntity != null)
-                {
-                    SelectedEntity.UnSelect();
-                }
-            }
-        }
-    }
-
-    private void GizmoSelectionManagement()
-    {
-        if (Input.GetMouseButtonDown(0) && !isMovingGizmo)
-        {
-            RaycastHit hit = ClicRaycast();
-            if (hit.collider != null)
-            {
-                if (hit.collider.gameObject.GetComponent<SelectableGizmo>() != null)
-                {
-                    gizmo = hit.collider.gameObject.GetComponent<SelectableGizmo>();
-                    gizmo.OnGizmoDown();
-                    isMovingGizmo = true;
-                }
-            }
-        }
-        
-        if(isMovingGizmo)
-        {
-            gizmo.OnGizmoMoved();
-        }
-        
-        if(Input.GetMouseButtonUp(0) && isMovingGizmo)
-        {
-            gizmo.OnGizmoUp();
-            gizmo = null;
-            isMovingGizmo = false;
-        }
-    }
-
     public RaycastHit ClicRaycast()
     {
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
@@ -99,5 +61,6 @@ public class CameraController : Entity
     }
 
     private SelectableElement SelectedEntity { get => GameManager.gameInstance.SelectedEntity; set => GameManager.gameInstance.SelectedEntity = value; }
+    private Tool CurrentTool { get => GameManager.toolsManager.CurrentTool; set => GameManager.toolsManager.CurrentTool = value; }
 
 }

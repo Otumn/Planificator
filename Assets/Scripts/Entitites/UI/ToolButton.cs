@@ -25,6 +25,12 @@ public class ToolButton : Entity
         // make the button darker;
     }
 
+    public void SelectTool()
+    {
+        GameManager.toolsManager.SelectTool(infos);
+        // make the button darker;
+    }
+
     public void ToggleParent()
     {
         subToolsParent.SetActive(!subToolsParent.activeSelf);

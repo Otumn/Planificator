@@ -10,6 +10,7 @@ public class SelectableElement : Entity
     {
         renderer.material.SetFloat("SelectionValue", 1f);
         GameManager.gameInstance.CallOnEntitySelected(this);
+        Debug.Log(gameObject.name);
     }
 
     public void UnSelect()
