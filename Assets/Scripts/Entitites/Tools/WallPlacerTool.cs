@@ -9,6 +9,7 @@ public class WallPlacerTool : Tool
     public override void ToolLeftClickDownAction()
     {
         base.ToolLeftClickDownAction();
+        if (isCursorOverUI()) return;
         GameObject wall = GameObject.Instantiate(wallPrefab, GameManager.mainCamera.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
         wall.transform.position = new Vector3(wall.transform.position.x, 0, wall.transform.position.z);
     }

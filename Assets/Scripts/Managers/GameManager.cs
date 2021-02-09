@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +11,8 @@ public class GameManager : MonoBehaviour
     public static CameraController camController;
     public static ToolsManager toolsManager;
     public static Camera mainCamera;
+    public static GraphicRaycaster mainRaycaster;
+    public static EventSystem gameEventSystem;
 
 
     private void Start()
@@ -23,6 +27,8 @@ public class GameManager : MonoBehaviour
         toolsManager = GameObject.FindObjectOfType<ToolsManager>();
         mainCamera = camController.cam;
         gameInstance.CallOnManagersInitialized();
+        gameEventSystem = GameObject.FindObjectOfType<EventSystem>();
+        mainRaycaster = GameObject.Find("MainCanvas").GetComponent<GraphicRaycaster>();
     }
 
 }

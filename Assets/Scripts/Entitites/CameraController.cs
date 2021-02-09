@@ -13,30 +13,6 @@ public class CameraController : Entity
     {
         base.Update();
         MovementManagement();
-        CurrentToolControl();
-    }
-
-    private void CurrentToolControl()
-    {
-        if(CurrentTool != null)
-        {
-            if(Input.GetMouseButtonDown(0))
-            {
-                CurrentTool.ToolLeftClickDownAction();
-            }
-            if(Input.GetMouseButton(0))
-            {
-                CurrentTool.ToolLeftClickHeldAction();
-            }
-            if(Input.GetMouseButtonUp(0))
-            {
-                CurrentTool.ToolLeftClickUpAction();
-            }
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                CurrentTool.ToolSpaceBarAction();
-            }
-        }
     }
 
     private void MovementManagement()
@@ -61,6 +37,5 @@ public class CameraController : Entity
     }
 
     private SelectableElement SelectedEntity { get => GameManager.gameInstance.SelectedEntity; set => GameManager.gameInstance.SelectedEntity = value; }
-    private Tool CurrentTool { get => GameManager.toolsManager.CurrentTool; set => GameManager.toolsManager.CurrentTool = value; }
 
 }
