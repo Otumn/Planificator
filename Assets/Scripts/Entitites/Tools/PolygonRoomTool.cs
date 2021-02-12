@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PolygonRoomTool : Tool
 {
-    public Material testMaterial;
+    public GameObject polygonElement;
     public List<Vector3> worldPoints;
 
     protected override void Update()
@@ -40,7 +40,8 @@ public class PolygonRoomTool : Tool
 
     private void AddPoint()
     {
-        Vector3 point = GameManager.mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        if (isCursorOverUI()) return;
+        Vector3 point = GameManager.sceneParameters.GetSnappedPosition(GameManager.mainCamera.ScreenToWorldPoint(Input.mousePosition));
         point.y = 0; // make this on top of everything? 
         worldPoints.Add(point);
     }
@@ -49,25 +50,16 @@ public class PolygonRoomTool : Tool
     {
         if (worldPoints.Count < 3) return;
 
-        Vector2[] v2Points = new Vector2[worldPoints.Count];
-        for (int i = 0; i < v2Points.Length; i++)
+        GameObject poly = GameObject.Instantiate(polygonElement);
+        poly.transform.position = worldPoints[0];
+        for (int i = 1; i < worldPoints.Count; i++)
         {
-            v2Points[i] = new Vector2(worldPoints[i].x, worldPoints[i].z);
+            worldPoints[i] -= worldPoints[0];
         }
-        Triangulator tr = new Triangulator(v2Points);
-        int[] indices = tr.Triangulate();
+        worldPoints[0] = Vector3.zero;
 
-        Mesh mesh = new Mesh();
-        mesh.vertices = worldPoints.ToArray();
-        mesh.uv = v2Points;
-        mesh.triangles = indices;
-        mesh.RecalculateNormals();
-        mesh.RecalculateBounds();
-
-        GameObject test = new GameObject("Test", typeof(MeshFilter), typeof(MeshRenderer));
-        test.GetComponent<MeshFilter>().mesh = mesh;
-        test.GetComponent<MeshRenderer>().material = testMaterial;
-        test.transform.position = Vector3.zero;
+        PolygonElement polyElement = poly.GetComponent<PolygonElement>();
+        polyElement.UpdateMeshPoints(worldPoints.ToArray());
 
         worldPoints.Clear();
     }

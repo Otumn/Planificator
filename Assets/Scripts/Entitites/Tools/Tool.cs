@@ -18,6 +18,16 @@ public class Tool : Entity
         gameObject.name = infos.name;
     }
 
+    public virtual void OnToolSelected()
+    {
+
+    }
+
+    public virtual void OnToolDeselected()
+    {
+
+    }
+
     #region Inputs
 
     public virtual void ToolLeftClickDownAction()

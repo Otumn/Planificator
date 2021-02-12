@@ -17,7 +17,9 @@ public class ToolsManager : Entity
         {
             if(transform.GetChild(i).name == info.name)
             {
+                if (currentTool != null) currentTool.OnToolDeselected();
                 currentTool = transform.GetChild(i).GetComponent<Tool>();
+                currentTool.OnToolSelected();
                 GameManager.gameInstance.CallOnToolSelected(transform.GetChild(i).GetComponent<Tool>());
                 return;
             }

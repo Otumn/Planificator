@@ -16,6 +16,7 @@ public class TransformTool : Tool
     public override void ToolLeftClickDownAction()
     {
         base.ToolLeftClickDownAction();
+        if (isCursorOverUI()) return;
         SelectionControls();
         if (!isMovingGizmo)
         {
