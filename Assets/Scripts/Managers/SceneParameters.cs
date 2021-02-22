@@ -22,4 +22,13 @@ public class SceneParameters : Entity
         snappedVector.z = Mathf.Round(worldPosition.z / moveSnap) * moveSnap;
         return snappedVector;
     }
+
+    public Vector3 GetSnappedPosition(Vector3 worldPosition, float snapValue)
+    {
+        Vector3 snappedVector = new Vector3();
+        snappedVector.x = Mathf.Round(worldPosition.x / snapValue) * snapValue;
+        snappedVector.y = Mathf.Round(worldPosition.y / snapValue) * snapValue;
+        snappedVector.z = Mathf.Round(worldPosition.z / snapValue) * snapValue;
+        return snappedVector;
+    }
 }

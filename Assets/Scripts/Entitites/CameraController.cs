@@ -5,18 +5,19 @@ using UnityEngine;
 public class CameraController : Entity
 {
     public Camera cam;
-    public MeshRenderer planeRenderer;
     public float panSpeed = 0.01f;
     public float zoomRate = 1;
     public float maxZoom = 50f;
+    public BackgroundPart[] bgParts;
 
-    private Vector3 planeOriginScale;
     private float camOriginOrthoSize;
+
+    private Vector3 mousePosOnWheelDown;
+    private Vector3 camPosOnWheelDown;
 
     protected override void Start()
     {
         base.Start();
-        planeOriginScale = planeRenderer.transform.localScale;
         camOriginOrthoSize = cam.orthographicSize;
     }
 
@@ -24,8 +25,6 @@ public class CameraController : Entity
     {
         base.Update();
         MovementManagement();
-        planeRenderer.material.SetVector("UVOffset", new Vector2(transform.position.x, transform.position.z));
-        planeRenderer.transform.localScale = planeOriginScale * CamOrthoRatio;
     }
 
     private void MovementManagement()
@@ -33,15 +32,24 @@ public class CameraController : Entity
         if(Input.mouseScrollDelta.y != 0f)
         {
             cam.orthographicSize = Mathf.Clamp(cam.orthographicSize + (-Input.mouseScrollDelta.y * zoomRate), 0.5f, maxZoom);
-            planeRenderer.transform.localScale = planeOriginScale * CamOrthoRatio;
-            //planeRenderer.material.SetFloat("UVLineTiling", /*moveSnape here==> */ 1 * (1 / CamOrthoRatio));
+            for (int i = 0; i < bgParts.Length; i++)
+            {
+                bgParts[i].ScalePlane(CamOrthoRatio);
+            }
+        }
 
+        if(Input.GetMouseButtonDown(2))
+        {
+            mousePosOnWheelDown = new Vector3(Input.mousePosition.x, 0, Input.mousePosition.y);
+            camPosOnWheelDown = transform.position;
         }
 
         if(Input.GetMouseButton(2))
         {
-            transform.position += new Vector3(-Input.GetAxis("Mouse X") * panSpeed * cam.orthographicSize, 0f, -Input.GetAxis("Mouse Y") * panSpeed * cam.orthographicSize);
-
+            //transform.position += new Vector3(-Input.GetAxis("Mouse X") * panSpeed * cam.orthographicSize, 0f, -Input.GetAxis("Mouse Y") * panSpeed * cam.orthographicSize);
+            float panDist = Vector3.Distance(mousePosOnWheelDown, new Vector3(Input.mousePosition.x, 0, Input.mousePosition.y));
+            Vector3 panDir = (new Vector3(Input.mousePosition.x, 0, Input.mousePosition.y) - mousePosOnWheelDown).normalized;
+            transform.position = camPosOnWheelDown + (-panDir * panDist * panSpeed * CamOrthoRatio);
         }
     }
 

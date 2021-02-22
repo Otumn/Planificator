@@ -1215,6 +1215,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1335078288038370066, guid: 6f7bc65d6a383e346b733ca01b2b4430, type: 3}
+      propertyPath: panSpeed
+      value: 0.015
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196013633058344445, guid: 6f7bc65d6a383e346b733ca01b2b4430, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7386908108982838079, guid: 6f7bc65d6a383e346b733ca01b2b4430, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8341706551607943658, guid: 6f7bc65d6a383e346b733ca01b2b4430, type: 3}
+      propertyPath: orthographic size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8341706551783981477, guid: 6f7bc65d6a383e346b733ca01b2b4430, type: 3}
       propertyPath: m_Name
       value: GameCamera
@@ -1262,6 +1278,14 @@ PrefabInstance:
     - target: {fileID: 8341706551783981478, guid: 6f7bc65d6a383e346b733ca01b2b4430, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8575914234399518433, guid: 6f7bc65d6a383e346b733ca01b2b4430, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902071917135083287, guid: 6f7bc65d6a383e346b733ca01b2b4430, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f7bc65d6a383e346b733ca01b2b4430, type: 3}
