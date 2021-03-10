@@ -5,10 +5,10 @@ using UnityEngine;
 public class CameraController : Entity
 {
     public Camera cam;
+    public BackgroundManager bgManager;
     public float panSpeed = 0.01f;
     public float zoomRate = 1;
     public float maxZoom = 50f;
-    public BackgroundPart[] bgParts;
 
     private float camOriginOrthoSize;
 
@@ -32,10 +32,7 @@ public class CameraController : Entity
         if(Input.mouseScrollDelta.y != 0f)
         {
             cam.orthographicSize = Mathf.Clamp(cam.orthographicSize + (-Input.mouseScrollDelta.y * zoomRate), 0.5f, maxZoom);
-            for (int i = 0; i < bgParts.Length; i++)
-            {
-                bgParts[i].ScalePlane(CamOrthoRatio);
-            }
+            bgManager.ScaleBackground(CamOrthoRatio);
         }
 
         if(Input.GetMouseButtonDown(2))
