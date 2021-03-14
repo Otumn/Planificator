@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public static CameraController camController;
     public static ToolsManager toolsManager;
     public static Camera mainCamera;
+    public static BackgroundManager bgManager;
     public static GraphicRaycaster mainRaycaster;
     public static EventSystem gameEventSystem;
 
@@ -26,9 +27,10 @@ public class GameManager : MonoBehaviour
         camController = GameObject.FindObjectOfType<CameraController>();
         toolsManager = GameObject.FindObjectOfType<ToolsManager>();
         mainCamera = camController.cam;
-        gameInstance.CallOnManagersInitialized();
         gameEventSystem = GameObject.FindObjectOfType<EventSystem>();
         mainRaycaster = GameObject.Find("MainCanvas").GetComponent<GraphicRaycaster>();
+        bgManager = GameObject.FindObjectOfType<BackgroundManager>();
+        gameInstance.CallOnManagersInitialized();
     }
 
 }
