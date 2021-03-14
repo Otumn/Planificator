@@ -1212,6 +1212,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7792705600849729039, guid: b7ea4267cc8f5bc489cf13fd9fa100eb, type: 3}
+      propertyPath: moveSnap
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7792705600849729041, guid: b7ea4267cc8f5bc489cf13fd9fa100eb, type: 3}
       propertyPath: m_Name
       value: SceneParameters
@@ -1225,6 +1229,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1051695236956745575, guid: 6f7bc65d6a383e346b733ca01b2b4430, type: 3}
+      propertyPath: thickLineMultiplier
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1051695236956745575, guid: 6f7bc65d6a383e346b733ca01b2b4430, type: 3}
+      propertyPath: lineBaseWidth
+      value: 0.075
+      objectReference: {fileID: 0}
     - target: {fileID: 1335078288038370066, guid: 6f7bc65d6a383e346b733ca01b2b4430, type: 3}
       propertyPath: panSpeed
       value: 0.015

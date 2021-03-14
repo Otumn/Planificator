@@ -8,7 +8,11 @@ public class BackgroundManager : Entity
     public GameObject lineParent;
     public GameObject linesPrefab;
     public Material linesMaterial;
+    public int thickLinesSpacing = 5;
+    public float thickLineMultiplier = 2.5f;
+    public float lineBaseWidth = 0.1f;
 
+    private float currentRatio;
     private List<GameObject> horizontalLines;
     private List<GameObject> verticalLines;
     private Vector3 originalBGPlaneScale;
@@ -44,10 +48,11 @@ public class BackgroundManager : Entity
             GameObject.Destroy(horizontalLines[i]);
         }
         horizontalLines.Clear();
+
         for (int i = 0; i < nbHori; i++)
         {
-            GameObject line = GameObject.Instantiate(linesPrefab, GameManager.sceneParameters.GetSnappedPosition(startingPos + new Vector3(0, 0, spacing * i)), Quaternion.identity);
-            line.transform.localScale = new Vector3(width + (spacing * 6), 1, 0.1f); // TODO : Replace the 0.1f with a dynamic value depending on camera ratio
+            GameObject line = GameObject.Instantiate(linesPrefab, GameManager.sceneParameters.GetSnappedPosition(startingPos + new Vector3(0, 0, spacing * i), SnapType.Ceilled), Quaternion.identity);
+            line.transform.localScale = new Vector3(width + (spacing * 6), 1, lineBaseWidth); // TODO : Replace the 0.1f with a dynamic value depending on camera ratio
             line.transform.parent = lineParent.transform;
             horizontalLines.Add(line);
         }
@@ -62,25 +67,60 @@ public class BackgroundManager : Entity
             GameObject.Destroy(verticalLines[i]);
         }
         verticalLines.Clear();
+
         for (int i = 0; i < nbVerti; i++)
         {
-            GameObject line = GameObject.Instantiate(linesPrefab, GameManager.sceneParameters.GetSnappedPosition(startingPos + new Vector3(spacing * i, 0, 0)), Quaternion.Euler(0, -90, 0));
-            line.transform.localScale = new Vector3(height + (spacing * 6), 1, 0.1f); // TODO : Replace the 0.1f with a dynamic value depending on camera ratio
+            GameObject line = GameObject.Instantiate(linesPrefab, GameManager.sceneParameters.GetSnappedPosition(startingPos + new Vector3(spacing * i, 0, 0), SnapType.Ceilled), Quaternion.Euler(0, -90, 0));
+            line.transform.localScale = new Vector3(height + (spacing * 6), 1, lineBaseWidth); // TODO : Replace the 0.1f with a dynamic value depending on camera ratio
             line.transform.parent = lineParent.transform;
-            horizontalLines.Add(line);
+            verticalLines.Add(line);
         }
 
     }
 
     public void ScaleBackground(float ratio)
     {
+        currentRatio = ratio;
         bGPlane.transform.localScale = originalBGPlaneScale * ratio;
         DrawLines(GameManager.sceneParameters.moveSnap);
+        ArrangeLinesVisuals(GameManager.sceneParameters.moveSnap);
     }
 
     public void MoveBackground()
     {
-        lineParent.transform.position = GameManager.sceneParameters.GetSnappedPosition(new Vector3(transform.position.x, -4, transform.position.z));
+        lineParent.transform.position = GameManager.sceneParameters.GetSnappedPosition(new Vector3(transform.position.x, -4, transform.position.z), SnapType.Rounded);
+        ArrangeLinesVisuals(GameManager.sceneParameters.moveSnap);
+    }
+
+    public void ArrangeLinesVisuals(float spacing)
+    {
+        for (int i = 0; i < horizontalLines.Count; i++)
+        {
+            if(horizontalLines[i].transform.position.z % (spacing * thickLinesSpacing) == 0)
+            {
+                //thick line
+                horizontalLines[i].transform.localScale = new Vector3(horizontalLines[i].transform.localScale.x, 1, lineBaseWidth * thickLineMultiplier);
+            }
+            else
+            {
+                //normal line
+                horizontalLines[i].transform.localScale = new Vector3(horizontalLines[i].transform.localScale.x, 1, lineBaseWidth);
+            }
+        }
+
+        for (int i = 0; i < verticalLines.Count; i++)
+        {
+            if (verticalLines[i].transform.position.x % (spacing * thickLinesSpacing) == 0)
+            {
+                //thick line
+                verticalLines[i].transform.localScale = new Vector3(verticalLines[i].transform.localScale.x, 1, lineBaseWidth * thickLineMultiplier);
+            }
+            else
+            {
+                //normal line
+                verticalLines[i].transform.localScale = new Vector3(verticalLines[i].transform.localScale.x, 1, lineBaseWidth);
+            }
+        }
     }
 
 }

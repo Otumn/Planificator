@@ -41,7 +41,7 @@ public class PolygonRoomTool : Tool
     private void AddPoint()
     {
         if (isCursorOverUI()) return;
-        Vector3 point = GameManager.sceneParameters.GetSnappedPosition(GameManager.mainCamera.ScreenToWorldPoint(Input.mousePosition));
+        Vector3 point = GameManager.sceneParameters.GetSnappedPosition(GameManager.mainCamera.ScreenToWorldPoint(Input.mousePosition), SnapType.Rounded);
         point.y = 0; // make this on top of everything? 
         worldPoints.Add(point);
     }

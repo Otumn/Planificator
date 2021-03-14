@@ -14,21 +14,62 @@ public class SceneParameters : Entity
         base.Start();
     }
 
-    public Vector3 GetSnappedPosition(Vector3 worldPosition)
+    public Vector3 GetSnappedPosition(Vector3 worldPosition, SnapType type)
     {
         Vector3 snappedVector = new Vector3();
-        snappedVector.x = Mathf.Round(worldPosition.x / moveSnap) * moveSnap;
-        snappedVector.y = Mathf.Round(worldPosition.y / moveSnap) * moveSnap;
-        snappedVector.z = Mathf.Round(worldPosition.z / moveSnap) * moveSnap;
+        switch (type)
+        {
+            case SnapType.Rounded:
+                snappedVector.x = Mathf.Round(worldPosition.x / moveSnap) * moveSnap;
+                snappedVector.y = Mathf.Round(worldPosition.y / moveSnap) * moveSnap;
+                snappedVector.z = Mathf.Round(worldPosition.z / moveSnap) * moveSnap;
+                break;
+
+            case SnapType.Floored:
+                snappedVector.x = Mathf.Floor(worldPosition.x / moveSnap) * moveSnap;
+                snappedVector.y = Mathf.Floor(worldPosition.y / moveSnap) * moveSnap;
+                snappedVector.z = Mathf.Floor(worldPosition.z / moveSnap) * moveSnap;
+                break;
+
+            case SnapType.Ceilled:
+                snappedVector.x = Mathf.Ceil(worldPosition.x / moveSnap) * moveSnap;
+                snappedVector.y = Mathf.Ceil(worldPosition.y / moveSnap) * moveSnap;
+                snappedVector.z = Mathf.Ceil(worldPosition.z / moveSnap) * moveSnap;
+                break;
+        }
         return snappedVector;
     }
 
-    public Vector3 GetSnappedPosition(Vector3 worldPosition, float snapValue)
+    public Vector3 GetSnappedPosition(Vector3 worldPosition, SnapType type, float snapValue)
     {
         Vector3 snappedVector = new Vector3();
-        snappedVector.x = Mathf.Round(worldPosition.x / snapValue) * snapValue;
-        snappedVector.y = Mathf.Round(worldPosition.y / snapValue) * snapValue;
-        snappedVector.z = Mathf.Round(worldPosition.z / snapValue) * snapValue;
+        switch(type)
+        {
+            case SnapType.Rounded:
+                snappedVector.x = Mathf.Round(worldPosition.x / snapValue) * snapValue;
+                snappedVector.y = Mathf.Round(worldPosition.y / snapValue) * snapValue;
+                snappedVector.z = Mathf.Round(worldPosition.z / snapValue) * snapValue;
+                break;
+
+            case SnapType.Floored:
+                snappedVector.x = Mathf.Floor(worldPosition.x / snapValue) * snapValue;
+                snappedVector.y = Mathf.Floor(worldPosition.y / snapValue) * snapValue;
+                snappedVector.z = Mathf.Floor(worldPosition.z / snapValue) * snapValue;
+                break;
+
+            case SnapType.Ceilled:
+                snappedVector.x = Mathf.Ceil(worldPosition.x / snapValue) * snapValue;
+                snappedVector.y = Mathf.Ceil(worldPosition.y / snapValue) * snapValue;
+                snappedVector.z = Mathf.Ceil(worldPosition.z / snapValue) * snapValue;
+                break;
+        }
         return snappedVector;
     }
 }
+
+public enum SnapType
+{
+    Rounded,
+    Floored,
+    Ceilled
+};
