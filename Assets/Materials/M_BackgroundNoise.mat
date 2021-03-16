@@ -116,6 +116,7 @@ Material:
     m_Floats:
     - NoiseScale: 100
     - SelectionValue: 0
+    - Tiling: 1
     - _AORemapMax: 1
     - _AORemapMin: 0
     - _ATDistance: 1
