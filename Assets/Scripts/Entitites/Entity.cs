@@ -50,12 +50,17 @@ public class Entity : MonoBehaviour
 
     }
 
-    public virtual void OnNewMoveSnapSet(float newSnap)
+    public virtual void OnMoveSnapSet(float newSnap)
     {
 
     }
 
-    public virtual void OnNewRotSnapSet(float newSnap)
+    public virtual void OnRotSnapSet(float newSnap)
+    {
+
+    }
+
+    public virtual void OnSnapSet(bool snap)
     {
 
     }

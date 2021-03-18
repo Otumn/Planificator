@@ -6,8 +6,8 @@ public class SceneParameters : Entity
 {
     private float moveSnap = 0.5f;
     private float rotateSnap = 15f;
-    public float scaleSnap = 0.5f;
-    public bool snapping = true;
+    private float scaleSnap = 0.5f;
+    private bool snapping = true;
 
     protected override void Start()
     {
@@ -66,20 +66,35 @@ public class SceneParameters : Entity
         return snappedVector;
     }
 
-    public void SetNewMoveSnap(float snap)
+    public float GetSnappedRotation(float yRotation)
     {
-        moveSnap = snap;
-        GameManager.gameInstance.CallOnNewMoveSnapSet(snap);
+        float snappedFloat = 0f;
+        snappedFloat = Mathf.Round(yRotation / rotateSnap) * rotateSnap;
+        return snappedFloat;
     }
 
-    public void SetNewRotSnap(float snap)
+    public void SetMoveSnap(float snap)
+    {
+        moveSnap = snap;
+        GameManager.gameInstance.CallOnMoveSnapSet(snap);
+    }
+
+    public void SetRotSnap(float snap)
     {
         rotateSnap = snap;
-        GameManager.gameInstance.CallOnNewRotSnapSet(snap);
+        GameManager.gameInstance.CallOnRotSnapSet(snap);
+    }
+
+    public void SetSnapping(bool snap)
+    {
+        snapping = snap;
+        GameManager.gameInstance.CallOnSnapSet(snap);
     }
 
     public float MoveSnap { get => moveSnap; }
     public float RotateSnap { get => rotateSnap; }
+    public float ScaleSnap { get => scaleSnap; }
+    public bool Snapping { get => snapping; }
 }
 
 public enum SnapType

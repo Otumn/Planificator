@@ -12,12 +12,15 @@ public class SelectableGizmo : Entity
 
     public virtual void OnGizmoDown()
     {
+        SelectableElement ent = SelectedEntity;
+
         mousePosOnSelection = Input.mousePosition;
-        mouseToCenterVector = GameManager.gameInstance.SelectedEntity.transform.position - GameManager.mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        mouseToCenterVector = ent.transform.position - GameManager.mainCamera.ScreenToWorldPoint(Input.mousePosition);
         mouseToCenterVector.y = 0;
-        entPosOnSelect = GameManager.gameInstance.SelectedEntity.transform.position;
-        entScaleOnSelect = GameManager.gameInstance.SelectedEntity.transform.localScale;
-        entRotOnSelect = GameManager.gameInstance.SelectedEntity.transform.rotation.eulerAngles;
+
+        entPosOnSelect = ent.transform.position;
+        entScaleOnSelect = ent.transform.localScale;
+        entRotOnSelect = ent.transform.rotation.eulerAngles;
     }
 
     public virtual void OnGizmoMoved()

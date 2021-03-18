@@ -32,6 +32,8 @@ public class CameraController : Entity
     {
         if(Input.mouseScrollDelta.y != 0f)
         {
+            if (GameManager.toolsManager.CurrentTool.isCursorOverUI()) return;
+
             cam.orthographicSize = Mathf.Clamp(cam.orthographicSize + (-Input.mouseScrollDelta.y * zoomRate), 0.5f, maxZoom);
             height = cam.orthographicSize;
             width = height * cam.aspect;

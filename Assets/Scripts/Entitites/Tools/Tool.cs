@@ -57,7 +57,7 @@ public class Tool : Entity
 
     #endregion
 
-    protected bool isCursorOverUI()
+    public bool isCursorOverUI()
     {
         pointerEventData = new PointerEventData(GameEventSystem);
         pointerEventData.position = Input.mousePosition;

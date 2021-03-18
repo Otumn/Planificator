@@ -33,9 +33,9 @@ public class BackgroundManager : Entity
         ScaleBackground(GameManager.camController.CamOrthoRatio);
     }
 
-    public override void OnNewMoveSnapSet(float newSnap)
+    public override void OnMoveSnapSet(float newSnap)
     {
-        base.OnNewMoveSnapSet(newSnap);
+        base.OnMoveSnapSet(newSnap);
         DrawLines(newSnap);
         ArrangeLinesVisuals(newSnap);
     }

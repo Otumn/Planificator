@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public static BackgroundManager bgManager;
     public static GraphicRaycaster mainRaycaster;
     public static EventSystem gameEventSystem;
+    public static MainCanvas mainUI;
 
 
     private void Start()
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour
         mainCamera = camController.cam;
         gameEventSystem = GameObject.FindObjectOfType<EventSystem>();
         mainRaycaster = GameObject.Find("MainCanvas").GetComponent<GraphicRaycaster>();
+        mainUI = GameObject.Find("MainCanvas").GetComponent<MainCanvas>();
         bgManager = GameObject.FindObjectOfType<BackgroundManager>();
         gameInstance.CallOnManagersInitialized();
     }
@@ -89,22 +91,29 @@ public class GameInstance
         }
     }
 
-    public void CallOnNewMoveSnapSet(float newSnap)
+    public void CallOnMoveSnapSet(float newSnap)
     {
         for (int i = 0; i < entities.Count; i++)
         {
-            entities[i].OnNewMoveSnapSet(newSnap);
+            entities[i].OnMoveSnapSet(newSnap);
         }
     }
 
-    public void CallOnNewRotSnapSet(float newSnap)
+    public void CallOnRotSnapSet(float newSnap)
     {
         for (int i = 0; i < entities.Count; i++)
         {
-            entities[i].OnNewRotSnapSet(newSnap);
+            entities[i].OnRotSnapSet(newSnap);
         }
     }
 
+    public void CallOnSnapSet(bool snap)
+    {
+        for (int i = 0; i < entities.Count; i++)
+        {
+            entities[i].OnSnapSet(snap);
+        }
+    }
     #endregion
 
     public SelectableElement SelectedEntity { get => selectedEntity; set => selectedEntity = value; }

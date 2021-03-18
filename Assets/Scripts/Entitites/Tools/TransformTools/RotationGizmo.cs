@@ -16,7 +16,10 @@ public class RotationGizmo : SelectableGizmo
         base.OnGizmoMoved();
         float rot = 0f;
         rot = -entRotOnSelect.y + Quaternion.FromToRotation((mousePosOnSelection - GameManager.mainCamera.WorldToScreenPoint(entPosOnSelect)), (Input.mousePosition - GameManager.mainCamera.WorldToScreenPoint(entPosOnSelect))).eulerAngles.z;
-
+        if(GameManager.sceneParameters.Snapping)
+        {
+            rot = GameManager.sceneParameters.GetSnappedRotation(rot);
+        }
         GameManager.gameInstance.SelectedEntity.transform.rotation = Quaternion.Euler(new Vector3(0, -rot, 0));
         transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, 0, rot));
     }

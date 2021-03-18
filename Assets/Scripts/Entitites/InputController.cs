@@ -8,31 +8,42 @@ public class InputController : Entity
     {
         base.Update();
         CurrentToolControl();
+        ShortcutControls();
     }
     private void CurrentToolControl()
     {
-        if (CurrentTool != null)
+        if (Input.GetMouseButtonDown(0))
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                CurrentTool.ToolLeftClickDownAction();
-            }
-            if (Input.GetMouseButton(0))
-            {
-                CurrentTool.ToolLeftClickHeldAction();
-            }
-            if (Input.GetMouseButtonUp(0))
-            {
-                CurrentTool.ToolLeftClickUpAction();
-            }
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                CurrentTool.ToolSpaceBarAction();
-            }
-            if(Input.GetKeyDown(KeyCode.Escape))
-            {
-                CurrentTool.ToolEscAction();
-            }
+            if (CurrentTool == null) return;
+            CurrentTool.ToolLeftClickDownAction();
+        }
+        if (Input.GetMouseButton(0))
+        {
+            if (CurrentTool == null) return;
+            CurrentTool.ToolLeftClickHeldAction();
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (CurrentTool == null) return;
+            CurrentTool.ToolLeftClickUpAction();
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (CurrentTool == null) return;
+            CurrentTool.ToolSpaceBarAction();
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (CurrentTool == null) return;
+            CurrentTool.ToolEscAction();
+        }
+    }
+
+    private void ShortcutControls()
+    {
+        if(Input.GetKeyDown(KeyCode.Tab))
+        {
+            GameManager.mainUI.SetNewSnapping(!GameManager.sceneParameters.Snapping);
         }
     }
 
