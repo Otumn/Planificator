@@ -30,7 +30,7 @@ public class BackgroundManager : Entity
     public override void OnManagersInitialized()
     {
         base.OnManagersInitialized();
-        DrawLines(GameManager.sceneParameters.MoveSnap);
+        ScaleBackground(GameManager.camController.CamOrthoRatio);
     }
 
     public override void OnNewMoveSnapSet(float newSnap)
@@ -40,15 +40,30 @@ public class BackgroundManager : Entity
         ArrangeLinesVisuals(newSnap);
     }
 
+    public void ScaleBackground(float ratio)
+    {
+        currentRatio = ratio;
+        bGPlane.transform.localScale = originalBGPlaneScale * ratio;
+        DrawLines(GameManager.sceneParameters.MoveSnap);
+        ArrangeLinesVisuals(GameManager.sceneParameters.MoveSnap);
+        linesMaterial.SetFloat("Alpha", 1 / (ratio * 2));
+    }
+
+    public void MoveBackground()
+    {
+        lineParent.transform.position = GameManager.sceneParameters.GetSnappedPosition(new Vector3(transform.position.x, -4, transform.position.z), SnapType.Rounded);
+        ArrangeLinesVisuals(GameManager.sceneParameters.MoveSnap);
+    }
+
     private void DrawLines(float spacing)
     {
-        float height = GameManager.camController.Height*2;
-        float width = GameManager.camController.Width*2;
+        float height = GameManager.camController.Height * 2;
+        float width = GameManager.camController.Width * 2;
         //Debug.Log("Width : " + width + " Height : " + height);
 
         //horizontal lines
         int nbHori = Mathf.RoundToInt(height / spacing) + 3;
-        Vector3 startingPos = new Vector3(lineParent.transform.position.x - (width * 0.5f) - (spacing * 3f), lineParent.transform.position.y + 0.5f, lineParent.transform.position.z - (height * 0.5f) - spacing); 
+        Vector3 startingPos = new Vector3(lineParent.transform.position.x - (width * 0.5f) - (spacing * 3f), lineParent.transform.position.y + 0.5f, lineParent.transform.position.z - (height * 0.5f) - spacing);
         // TODO : optimize this? v
         for (int i = 0; i < horizontalLines.Count; i++)
         {
@@ -83,21 +98,6 @@ public class BackgroundManager : Entity
             verticalLines.Add(line);
         }
 
-    }
-
-    public void ScaleBackground(float ratio)
-    {
-        currentRatio = ratio;
-        bGPlane.transform.localScale = originalBGPlaneScale * ratio;
-        DrawLines(GameManager.sceneParameters.MoveSnap);
-        ArrangeLinesVisuals(GameManager.sceneParameters.MoveSnap);
-        linesMaterial.SetFloat("Alpha", 1 / (ratio * 2));
-    }
-
-    public void MoveBackground()
-    {
-        lineParent.transform.position = GameManager.sceneParameters.GetSnappedPosition(new Vector3(transform.position.x, -4, transform.position.z), SnapType.Rounded);
-        ArrangeLinesVisuals(GameManager.sceneParameters.MoveSnap);
     }
 
     public void ArrangeLinesVisuals(float spacing)

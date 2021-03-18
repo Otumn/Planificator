@@ -63,7 +63,7 @@ public class CameraController : Entity
     }
 
     private SelectableElement SelectedEntity { get => GameManager.gameInstance.SelectedEntity; set => GameManager.gameInstance.SelectedEntity = value; }
-    private float CamOrthoRatio { get => (cam.orthographicSize / camOriginOrthoSize); }
+    public float CamOrthoRatio { get => (cam.orthographicSize / camOriginOrthoSize); }
     public float Height { get => height; }
     public float Width { get => width; }
 }

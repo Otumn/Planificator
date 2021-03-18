@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SceneParameters : Entity
 {
-    private float moveSnap = 0.25f;
+    private float moveSnap = 0.5f;
     private float rotateSnap = 15f;
     public float scaleSnap = 0.5f;
     public bool snapping = true;
