@@ -50,5 +50,15 @@ public class Entity : MonoBehaviour
 
     }
 
+    public virtual void OnNewMoveSnapSet(float newSnap)
+    {
+
+    }
+
+    public virtual void OnNewRotSnapSet(float newSnap)
+    {
+
+    }
+
     #endregion
 }

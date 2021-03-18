@@ -12,7 +12,19 @@ public class MainCanvas : Entity
     public override void OnManagersInitialized()
     {
         base.OnManagersInitialized();
-        moveSnapField.text = GameManager.sceneParameters.moveSnap.ToString();
-        rotSnapField.text = GameManager.sceneParameters.rotateSnap.ToString();
+        moveSnapField.text = GameManager.sceneParameters.MoveSnap.ToString();
+        rotSnapField.text = GameManager.sceneParameters.RotateSnap.ToString();
+    }
+
+    public void SetNewMoveSnapValue(string inputString)
+    {
+        float snap = float.Parse(inputString);
+        GameManager.sceneParameters.SetNewMoveSnap(snap);
+    }
+
+    public void SetNewRotSnapValue(string inputString)
+    {
+        float snap = float.Parse(inputString);
+        GameManager.sceneParameters.SetNewRotSnap(snap);
     }
 }

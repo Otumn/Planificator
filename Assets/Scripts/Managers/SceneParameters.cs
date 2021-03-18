@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SceneParameters : Entity
 {
-    public float moveSnap = 0.25f;
-    public float rotateSnap = 15f;
+    private float moveSnap = 0.25f;
+    private float rotateSnap = 15f;
     public float scaleSnap = 0.5f;
     public bool snapping = true;
 
@@ -20,21 +20,21 @@ public class SceneParameters : Entity
         switch (type)
         {
             case SnapType.Rounded:
-                snappedVector.x = Mathf.Round(worldPosition.x / moveSnap) * moveSnap;
-                snappedVector.y = Mathf.Round(worldPosition.y / moveSnap) * moveSnap;
-                snappedVector.z = Mathf.Round(worldPosition.z / moveSnap) * moveSnap;
+                snappedVector.x = Mathf.Round(worldPosition.x / MoveSnap) * MoveSnap;
+                snappedVector.y = Mathf.Round(worldPosition.y / MoveSnap) * MoveSnap;
+                snappedVector.z = Mathf.Round(worldPosition.z / MoveSnap) * MoveSnap;
                 break;
 
             case SnapType.Floored:
-                snappedVector.x = Mathf.Floor(worldPosition.x / moveSnap) * moveSnap;
-                snappedVector.y = Mathf.Floor(worldPosition.y / moveSnap) * moveSnap;
-                snappedVector.z = Mathf.Floor(worldPosition.z / moveSnap) * moveSnap;
+                snappedVector.x = Mathf.Floor(worldPosition.x / MoveSnap) * MoveSnap;
+                snappedVector.y = Mathf.Floor(worldPosition.y / MoveSnap) * MoveSnap;
+                snappedVector.z = Mathf.Floor(worldPosition.z / MoveSnap) * MoveSnap;
                 break;
 
             case SnapType.Ceilled:
-                snappedVector.x = Mathf.Ceil(worldPosition.x / moveSnap) * moveSnap;
-                snappedVector.y = Mathf.Ceil(worldPosition.y / moveSnap) * moveSnap;
-                snappedVector.z = Mathf.Ceil(worldPosition.z / moveSnap) * moveSnap;
+                snappedVector.x = Mathf.Ceil(worldPosition.x / MoveSnap) * MoveSnap;
+                snappedVector.y = Mathf.Ceil(worldPosition.y / MoveSnap) * MoveSnap;
+                snappedVector.z = Mathf.Ceil(worldPosition.z / MoveSnap) * MoveSnap;
                 break;
         }
         return snappedVector;
@@ -65,6 +65,21 @@ public class SceneParameters : Entity
         }
         return snappedVector;
     }
+
+    public void SetNewMoveSnap(float snap)
+    {
+        moveSnap = snap;
+        GameManager.gameInstance.CallOnNewMoveSnapSet(snap);
+    }
+
+    public void SetNewRotSnap(float snap)
+    {
+        rotateSnap = snap;
+        GameManager.gameInstance.CallOnNewRotSnapSet(snap);
+    }
+
+    public float MoveSnap { get => moveSnap; }
+    public float RotateSnap { get => rotateSnap; }
 }
 
 public enum SnapType

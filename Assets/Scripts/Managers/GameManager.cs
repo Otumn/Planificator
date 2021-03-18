@@ -89,6 +89,22 @@ public class GameInstance
         }
     }
 
+    public void CallOnNewMoveSnapSet(float newSnap)
+    {
+        for (int i = 0; i < entities.Count; i++)
+        {
+            entities[i].OnNewMoveSnapSet(newSnap);
+        }
+    }
+
+    public void CallOnNewRotSnapSet(float newSnap)
+    {
+        for (int i = 0; i < entities.Count; i++)
+        {
+            entities[i].OnNewRotSnapSet(newSnap);
+        }
+    }
+
     #endregion
 
     public SelectableElement SelectedEntity { get => selectedEntity; set => selectedEntity = value; }

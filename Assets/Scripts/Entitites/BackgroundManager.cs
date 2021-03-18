@@ -30,7 +30,14 @@ public class BackgroundManager : Entity
     public override void OnManagersInitialized()
     {
         base.OnManagersInitialized();
-        DrawLines(GameManager.sceneParameters.moveSnap);
+        DrawLines(GameManager.sceneParameters.MoveSnap);
+    }
+
+    public override void OnNewMoveSnapSet(float newSnap)
+    {
+        base.OnNewMoveSnapSet(newSnap);
+        DrawLines(newSnap);
+        ArrangeLinesVisuals(newSnap);
     }
 
     private void DrawLines(float spacing)
@@ -82,15 +89,15 @@ public class BackgroundManager : Entity
     {
         currentRatio = ratio;
         bGPlane.transform.localScale = originalBGPlaneScale * ratio;
-        DrawLines(GameManager.sceneParameters.moveSnap);
-        ArrangeLinesVisuals(GameManager.sceneParameters.moveSnap);
+        DrawLines(GameManager.sceneParameters.MoveSnap);
+        ArrangeLinesVisuals(GameManager.sceneParameters.MoveSnap);
         linesMaterial.SetFloat("Alpha", 1 / (ratio * 2));
     }
 
     public void MoveBackground()
     {
         lineParent.transform.position = GameManager.sceneParameters.GetSnappedPosition(new Vector3(transform.position.x, -4, transform.position.z), SnapType.Rounded);
-        ArrangeLinesVisuals(GameManager.sceneParameters.moveSnap);
+        ArrangeLinesVisuals(GameManager.sceneParameters.MoveSnap);
     }
 
     public void ArrangeLinesVisuals(float spacing)
@@ -100,12 +107,12 @@ public class BackgroundManager : Entity
             if(horizontalLines[i].transform.position.z % (spacing * thickLinesSpacing) == 0)
             {
                 //thick line
-                horizontalLines[i].transform.localScale = new Vector3(horizontalLines[i].transform.localScale.x, 1, lineBaseWidth * thickLineMultiplier * (1f * GameManager.sceneParameters.moveSnap));
+                horizontalLines[i].transform.localScale = new Vector3(horizontalLines[i].transform.localScale.x, 1, lineBaseWidth * thickLineMultiplier * (1f * GameManager.sceneParameters.MoveSnap));
             }
             else
             {
                 //normal line
-                horizontalLines[i].transform.localScale = new Vector3(horizontalLines[i].transform.localScale.x, 1, lineBaseWidth * (1f * GameManager.sceneParameters.moveSnap));
+                horizontalLines[i].transform.localScale = new Vector3(horizontalLines[i].transform.localScale.x, 1, lineBaseWidth * (1f * GameManager.sceneParameters.MoveSnap));
             }
             horizontalLines[i].transform.localPosition = new Vector3(horizontalLines[i].transform.localPosition.x, 0.5f, horizontalLines[i].transform.localPosition.z);
         }
@@ -115,12 +122,12 @@ public class BackgroundManager : Entity
             if (verticalLines[i].transform.position.x % (spacing * thickLinesSpacing) == 0)
             {
                 //thick line
-                verticalLines[i].transform.localScale = new Vector3(verticalLines[i].transform.localScale.x, 1, lineBaseWidth * thickLineMultiplier * (1f * GameManager.sceneParameters.moveSnap));
+                verticalLines[i].transform.localScale = new Vector3(verticalLines[i].transform.localScale.x, 1, lineBaseWidth * thickLineMultiplier * (1f * GameManager.sceneParameters.MoveSnap));
             }
             else
             {
                 //normal line
-                verticalLines[i].transform.localScale = new Vector3(verticalLines[i].transform.localScale.x, 1, lineBaseWidth * (1f * GameManager.sceneParameters.moveSnap));
+                verticalLines[i].transform.localScale = new Vector3(verticalLines[i].transform.localScale.x, 1, lineBaseWidth * (1f * GameManager.sceneParameters.MoveSnap));
             }
             verticalLines[i].transform.localPosition = new Vector3(verticalLines[i].transform.localPosition.x, 0.5f, verticalLines[i].transform.localPosition.z);
         }
