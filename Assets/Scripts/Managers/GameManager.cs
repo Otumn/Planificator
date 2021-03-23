@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public static GraphicRaycaster mainRaycaster;
     public static EventSystem gameEventSystem;
     public static MainCanvas mainUI;
+    public static GeoDrawing geoDrawer;
 
 
     private void Start()
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour
         mainRaycaster = GameObject.Find("MainCanvas").GetComponent<GraphicRaycaster>();
         mainUI = GameObject.Find("MainCanvas").GetComponent<MainCanvas>();
         bgManager = GameObject.FindObjectOfType<BackgroundManager>();
+        geoDrawer = GameObject.FindObjectOfType<GeoDrawing>();
         gameInstance.CallOnManagersInitialized();
     }
 

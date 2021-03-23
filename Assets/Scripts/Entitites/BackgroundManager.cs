@@ -51,7 +51,7 @@ public class BackgroundManager : Entity
 
     public void MoveBackground()
     {
-        lineParent.transform.position = GameManager.sceneParameters.GetSnappedPosition(new Vector3(transform.position.x, -4, transform.position.z), SnapType.Rounded);
+        lineParent.transform.position = GameManager.sceneParameters.GetSnappedPosition(new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), SnapType.Rounded);
         ArrangeLinesVisuals(GameManager.sceneParameters.MoveSnap);
     }
 

@@ -9,6 +9,7 @@ public class ToolsManager : Entity
     [Header("Tools")]
     public TransformTool transformTool;
     public WallPlacerTool wallPlacerTool;
+    public PolygonRoomTool polygonTool;
     #endregion
 
     public override void OnManagersInitialized()

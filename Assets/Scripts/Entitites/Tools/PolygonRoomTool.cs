@@ -42,8 +42,13 @@ public class PolygonRoomTool : Tool
     {
         if (isCursorOverUI()) return;
         Vector3 point = GameManager.sceneParameters.GetSnappedPosition(GameManager.mainCamera.ScreenToWorldPoint(Input.mousePosition), SnapType.Rounded);
-        point.y = 0; // make this on top of everything? 
+        point.y = 0; // TODO : put this depending on the current layer next y, when the layers will be done.
         worldPoints.Add(point);
+        GameManager.geoDrawer.DrawPoint(point, Color.red, 0.25f);
+        if(worldPoints.Count >= 2)
+        {
+            GameManager.geoDrawer.DrawLine(worldPoints[worldPoints.Count - 2], worldPoints[worldPoints.Count - 1], Color.red, 0.125f);
+        }
     }
 
     private void ValidateMesh()
@@ -62,5 +67,6 @@ public class PolygonRoomTool : Tool
         polyElement.UpdateMeshPoints(worldPoints.ToArray());
 
         worldPoints.Clear();
+        GameManager.geoDrawer.CleanAllDrawings();
     }
 }
