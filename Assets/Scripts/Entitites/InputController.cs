@@ -32,6 +32,11 @@ public class InputController : Entity
             if (CurrentTool == null) return;
             CurrentTool.ToolSpaceBarAction();
         }
+        if (Input.GetKeyDown(KeyCode.Delete))
+        {
+            if (CurrentTool == null) return;
+            CurrentTool.ToolSupprAction();
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (CurrentTool == null) return;

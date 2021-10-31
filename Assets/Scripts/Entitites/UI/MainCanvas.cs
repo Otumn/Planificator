@@ -9,6 +9,7 @@ public class MainCanvas : Entity
     public TMP_InputField moveSnapField;
     public TMP_InputField rotSnapField;
     public Toggle snapToggle;
+    public Text currentToolText;
 
     public override void OnManagersInitialized()
     {
@@ -16,6 +17,12 @@ public class MainCanvas : Entity
         moveSnapField.text = GameManager.sceneParameters.MoveSnap.ToString();
         rotSnapField.text = GameManager.sceneParameters.RotateSnap.ToString();
         snapToggle.isOn = GameManager.sceneParameters.Snapping;
+    }
+
+    public override void OnToolSelected(Tool selectedTool)
+    {
+        base.OnToolSelected(selectedTool);
+        currentToolText.text = selectedTool.infos.toolName;
     }
 
     public void SetNewMoveSnapValue(string inputString)

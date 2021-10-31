@@ -50,6 +50,11 @@ public class Tool : Entity
 
     }
 
+    public virtual void ToolSupprAction()
+    {
+
+    }
+
     public virtual void ToolEscAction()
     {
 

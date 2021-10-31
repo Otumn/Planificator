@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PolygonRoomTool : Tool
+public class PolygonWallTool : Tool
 {
-    public GameObject polygonElement;
+    public GameObject polyRoomElement;
     public List<Vector3> worldPoints;
 
     public override void ToolLeftClickDownAction()
@@ -33,7 +33,7 @@ public class PolygonRoomTool : Tool
         point.y = 0; // TODO : put this depending on the current layer next y, when the layers will be done.
         worldPoints.Add(point);
         GameManager.geoDrawer.DrawPoint(point, Color.red, 0.25f);
-        if(worldPoints.Count >= 2)
+        if (worldPoints.Count >= 2)
         {
             GameManager.geoDrawer.DrawLine(worldPoints[worldPoints.Count - 2], worldPoints[worldPoints.Count - 1], Color.red, 0.125f);
         }
@@ -41,18 +41,13 @@ public class PolygonRoomTool : Tool
 
     private void ValidateMesh()
     {
-        if (worldPoints.Count < 3) return;
+        if (worldPoints.Count < 2) return;
 
-        GameObject poly = GameObject.Instantiate(polygonElement);
+        GameObject poly = GameObject.Instantiate(polyRoomElement);
         poly.transform.position = worldPoints[0];
-        for (int i = 1; i < worldPoints.Count; i++)
-        {
-            worldPoints[i] -= worldPoints[0];
-        }
-        worldPoints[0] = Vector3.zero;
 
-        PolygonElement polyElement = poly.GetComponent<PolygonElement>();
-        polyElement.UpdateMeshPoints(worldPoints.ToArray());
+        PolyRoomElement room = poly.GetComponent<PolyRoomElement>();
+        room.CreateRoom(worldPoints.ToArray());
 
         worldPoints.Clear();
         GameManager.geoDrawer.CleanAllDrawings();

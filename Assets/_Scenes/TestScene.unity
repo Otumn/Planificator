@@ -200,6 +200,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "\u200B"
       objectReference: {fileID: 0}
+    - target: {fileID: 981135121854935344, guid: 3d7e25a744fb3bf49a7b898e388068fe, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.000030517578
+      objectReference: {fileID: 0}
     - target: {fileID: 1058243395642169982, guid: 3d7e25a744fb3bf49a7b898e388068fe, type: 3}
       propertyPath: m_AnchorMin.y
       value: 0
@@ -836,7 +840,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4010803388646585621, guid: b7950631f4b801443ac206286ff162b2, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4010803388646585621, guid: b7950631f4b801443ac206286ff162b2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -921,7 +925,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8341706551783981478, guid: 6f7bc65d6a383e346b733ca01b2b4430, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8341706551783981478, guid: 6f7bc65d6a383e346b733ca01b2b4430, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

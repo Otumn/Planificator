@@ -59,6 +59,12 @@ public class TransformTool : Tool
         SwitchType();
     }
 
+    public override void ToolSupprAction()
+    {
+        base.ToolSupprAction();
+        DeleteSelected();
+    }
+
     private void SelectionControls()
     {
         RaycastHit hit = ClicRaycast();
@@ -138,6 +144,16 @@ public class TransformTool : Tool
                 break;
         }
         transform.position = new Vector3(GameManager.gameInstance.SelectedEntity.transform.position.x, 5f, GameManager.gameInstance.SelectedEntity.transform.position.z);
+    }
+
+    public void DeleteSelected()
+    {
+        if(GameManager.gameInstance.SelectedEntity != null)
+        {
+            SelectableElement buffer = GameManager.gameInstance.SelectedEntity;
+            buffer.UnSelect();
+            Destroy(buffer.gameObject);
+        }
     }
 
 }

@@ -5,11 +5,14 @@ using UnityEngine;
 public class ToolsManager : Entity
 {
     #region Tools
+
     private Tool currentTool;
     [Header("Tools")]
     public TransformTool transformTool;
     public WallPlacerTool wallPlacerTool;
-    public PolygonRoomTool polygonTool;
+    public PolygonRoomTool polygonRoomTool;
+    public PolygonWallTool polygonWallsTool;
+
     #endregion
 
     public override void OnManagersInitialized()
