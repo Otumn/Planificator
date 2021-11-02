@@ -7,11 +7,6 @@ public class LayerManager : Entity
     private Layer currentLayer;
     private List<Layer> layers = new List<Layer>();
 
-    public void ReArrangeLayers()
-    {
-
-    }
-
     public void AddLayer()
     {
 

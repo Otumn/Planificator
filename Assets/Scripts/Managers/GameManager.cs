@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public static EventSystem gameEventSystem;
     public static MainCanvas mainUI;
     public static GeoDrawing geoDrawer;
+    public static LayerManager layerManager;
 
 
     private void Start()
@@ -34,6 +35,7 @@ public class GameManager : MonoBehaviour
         mainUI = GameObject.Find("MainCanvas").GetComponent<MainCanvas>();
         bgManager = GameObject.FindObjectOfType<BackgroundManager>();
         geoDrawer = GameObject.FindObjectOfType<GeoDrawing>();
+        layerManager = GameObject.FindObjectOfType<LayerManager>();
         gameInstance.CallOnManagersInitialized();
     }
 
@@ -84,7 +86,9 @@ public class GameInstance
             entities[i].OnEntityUnSelected(unsEntity);
         }
     }
-    
+
+    #region Tools events
+
     public void CallOnToolSelected(Tool tool)
     {
         for (int i = 0; i < entities.Count; i++)
@@ -116,6 +120,9 @@ public class GameInstance
             entities[i].OnSnapSet(snap);
         }
     }
+
+    #endregion
+
     #endregion
 
     public SelectableElement SelectedEntity { get => selectedEntity; set => selectedEntity = value; }

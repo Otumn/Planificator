@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f27e762844badee4fa737975df110c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  renderer: {fileID: 0}
   isLooping: 0
   wallWidth: 0.4
   wallPrefab: {fileID: 7534132341194643292, guid: 62789c766deff8445b7989c911f32c18, type: 3}

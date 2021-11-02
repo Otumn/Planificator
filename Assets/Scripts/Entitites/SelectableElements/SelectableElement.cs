@@ -5,17 +5,32 @@ using UnityEngine;
 public class SelectableElement : Entity
 {
     public MeshRenderer renderer;
+    public SelectableElement parentElement;
 
-    public void Select()
+    public virtual void Select()
     {
-        renderer.material.SetFloat("SelectionValue", 1f);
+        if (parentElement != null)
+        {
+            parentElement.Select();
+            return;
+        }
+        DisplaySelectionFeedback();
         GameManager.gameInstance.CallOnEntitySelected(this);
-        Debug.Log(gameObject.name);
     }
 
-    public void UnSelect()
+    public  virtual void UnSelect()
+    {
+        HideSelectionFeedback();
+        GameManager.gameInstance.CallOnEntityUnSelected(this);
+    }
+
+    public virtual void DisplaySelectionFeedback()
+    {
+        renderer.material.SetFloat("SelectionValue", 1f);
+    }
+
+    public virtual void HideSelectionFeedback()
     {
         renderer.material.SetFloat("SelectionValue", 0f);
-        GameManager.gameInstance.CallOnEntityUnSelected(this);
     }
 }
