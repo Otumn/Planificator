@@ -1,16 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LayerUI : Entity
 {
-    public GameObject layerPrefab;
-    public float contentheightPerRow = 27f;
+    public Layer linkedLayer;
+    public InputField indexInput;
+    public InputField nameInput;
 
-    public void AddLayer()
+    public void UpdateLayerInfos()
     {
 
     }
-
-    private LayerManager layerManager { get => GameManager.layerManager; }
 }
