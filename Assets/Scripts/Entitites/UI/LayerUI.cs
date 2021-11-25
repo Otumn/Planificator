@@ -6,38 +6,36 @@ using TMPro;
 
 public class LayerUI : Entity
 {
-    public Layer linkedLayer;
     public TMP_InputField indexInput;
     public TMP_InputField nameInput;
+
+    private int layerID = -1;
 
     protected override void OnEnable()
     {
         base.OnEnable();
-        GameManager.layerManager.CallLayerUIUpdate += UpdateLayerUIInfos;
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
-        GameManager.layerManager.CallLayerUIUpdate -= UpdateLayerUIInfos;
     }
 
-    public void UpdateLayerUIInfos()
+    public void UpdateLayerUIInfos(Layer layer)
     {
-        indexInput.text = linkedLayer.sortingIndex.ToString();
-        nameInput.text = linkedLayer.name;
+        indexInput.text = layer.sortingIndex.ToString();
+        nameInput.text = layer.name;
+        layerID = layer.iDIndex;
     }
 
-    public void SetLayerName()
+    public void SetLayerName(Layer layer)
     {
-        linkedLayer.name = nameInput.text;
-        UpdateLayerUIInfos();
+        layer.name = nameInput.text;
     }
 
     public void SetLayerIndex()
     {
-        linkedLayer.sortingIndex = int.Parse(indexInput.text);
-        UpdateLayerUIInfos();
+
         GameManager.layerManager.ReArrangeLayers(this);
     }
 
@@ -45,4 +43,6 @@ public class LayerUI : Entity
     {
 
     }
+
+    public int LayerID { get => layerID;}
 }
