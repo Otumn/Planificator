@@ -43,7 +43,7 @@ public class LayerManager : Entity
         // clamp asking index
 
         askingLayer.sortingIndex = int.Parse(askingUI.indexInput.text);
-        askingLayer.sortingIndex = Mathf.Clamp(askingLayer.sortingIndex, 0, layers.Count - 1);
+        askingLayer.sortingIndex = Mathf.Clamp(askingLayer.sortingIndex, 0, layers.Count);
 
         // check if another layer has the same sorting index, if yes take that layer sorting index and + 1
 
@@ -84,7 +84,53 @@ public class LayerManager : Entity
         }
     }
 
-    public void DeleteLayer(int index)
+    public void ReArrangeLayers()
+    {
+        // rearrange the layers' sorting IDs
+        int[] ids = new int[layers.Count];
+
+        for (int i = 0; i < ids.Length; i++)
+        {
+            ids[i] = layers[i].sortingIndex;
+        }
+
+        Layer[] tempLayers = layers.ToArray();
+
+        Array.Sort(ids, tempLayers);
+
+        // empty the layers content
+
+        LayerUI[] children = new LayerUI[contentLayerBox.childCount - 1];
+        for (int i = 0; i < children.Length; i++)
+        {
+            tempLayers[i].linkedUI = contentLayerBox.GetChild(i).GetComponent<LayerUI>();
+            tempLayers[i].sortingIndex = i;
+            tempLayers[i].linkedUI.UpdateLayerUIInfos(tempLayers[i]);
+        }
+    }
+
+    public void DeleteLayer(LayerUI askingUI)
+    {
+        int tempIndex = askingUI.LayerID;
+        askingUI.transform.SetParent(null, false);
+        GameObject.Destroy(askingUI.gameObject);
+        for (int i = 0; i < layers.Count; i++)
+        {
+            if(layers[i].iDIndex == tempIndex)
+            {
+                layers.Remove(layers[i]);
+                break;
+            }
+        }
+        ReArrangeLayers();
+    }
+
+    public void SelectLayer(LayerUI askingUI)
+    {
+
+    }
+
+    public void HideLayer(LayerUI askingUI)
     {
 
     }

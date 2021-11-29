@@ -41,7 +41,7 @@ public class LayerUI : Entity
 
     public void DeleteLayer()
     {
-
+        GameManager.layerManager.DeleteLayer(this);
     }
 
     public int LayerID { get => layerID;}
