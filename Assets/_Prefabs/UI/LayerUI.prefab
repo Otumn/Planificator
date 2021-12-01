@@ -495,6 +495,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indexInput: {fileID: 3145004421895425579}
   nameInput: {fileID: 2442813888308121360}
+  bgImage: {fileID: 3497955250874575234}
+  activeLayerColor: {r: 0.8773585, g: 0.8773585, b: 0.8773585, a: 1}
+  inactiveLayerColor: {r: 0.16037738, g: 0.16037738, b: 0.16037738, a: 1}
 --- !u!1 &2953104158629884836
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,7 +617,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3267856278295748595}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3658288712262052799}
+        m_TargetAssemblyTypeName: LayerUI, Assembly-CSharp
+        m_MethodName: AskForActive
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3142869728387072858
 GameObject:
   m_ObjectHideFlags: 0

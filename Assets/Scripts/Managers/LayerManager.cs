@@ -10,6 +10,7 @@ public class LayerManager : Entity
     public float uIHeightPerLayer = 27f;
     public RectTransform contentLayerBox;
     public GameObject layerUIPrefab;
+    public Text currentLayerName;
 
     private Layer currentLayer;
     private List<Layer> layers = new List<Layer>();
@@ -32,6 +33,15 @@ public class LayerManager : Entity
         newLayer.linkedUI = newUI;
         newUI.UpdateLayerUIInfos(newLayer);
         layers.Add(newLayer);
+
+        if(layers.Count == 1)
+        {
+            SelectLayer(newUI);
+        }
+        else
+        {
+            newUI.SetLayerActive(false);
+        }
     }
 
     public void ReArrangeLayers(LayerUI askingUI)
@@ -79,9 +89,11 @@ public class LayerManager : Entity
         for (int i = 0; i < children.Length; i++)
         {
             tempLayers[i].linkedUI = contentLayerBox.GetChild(i).GetComponent<LayerUI>();
+            tempLayers[i].linkedUI.SetLayerActive(false);
             tempLayers[i].sortingIndex = i;
             tempLayers[i].linkedUI.UpdateLayerUIInfos(tempLayers[i]);
         }
+        currentLayer.linkedUI.SetLayerActive(true);
     }
 
     public void ReArrangeLayers()
@@ -113,6 +125,11 @@ public class LayerManager : Entity
     {
         int tempIndex = askingUI.LayerID;
         askingUI.transform.SetParent(null, false);
+        if(currentLayer.iDIndex == askingUI.LayerID)
+        {
+            currentLayer = layers[0];
+            currentLayer.linkedUI.SetLayerActive(true);
+        }
         GameObject.Destroy(askingUI.gameObject);
         for (int i = 0; i < layers.Count; i++)
         {
@@ -127,12 +144,23 @@ public class LayerManager : Entity
 
     public void SelectLayer(LayerUI askingUI)
     {
+        if(currentLayer != null)
+        {
+            currentLayer.linkedUI.SetLayerActive(false);
+        }
+        currentLayer = GetLayerFromID(askingUI.LayerID);
+        currentLayerName.text = currentLayer.name;
+        askingUI.SetLayerActive(true);
+    }
+
+    public void ShowLayer(LayerUI askingUI)
+    {
 
     }
 
     public void HideLayer(LayerUI askingUI)
     {
-
+        
     }
 
     public void HideAllLayers()
@@ -148,7 +176,6 @@ public class LayerManager : Entity
         {
             if (layers[i].iDIndex == id) return layers[i];
         }
-
         return null;
     }
 
@@ -176,4 +203,5 @@ public class Layer
     public int sortingIndex = -1;
     public int iDIndex = -1;
     public LayerUI linkedUI; // this may an easier solution actually. When loading a save file, I'll juste have to count the number layer loaded, then give them each a UI, then update them, and boom.
+    public float currentYValue = 0f;
 }
