@@ -31,14 +31,13 @@ public class LayerUI : Entity
         layerID = layer.iDIndex;
     }
 
-    public void SetLayerName(Layer layer)
+    public void UpdateLayerName()
     {
-        layer.name = nameInput.text;
+        GameManager.layerManager.GetLayerFromID(layerID).name = nameInput.text;
     }
 
     public void SetLayerIndex()
     {
-
         GameManager.layerManager.ReArrangeLayers(this);
     }
 

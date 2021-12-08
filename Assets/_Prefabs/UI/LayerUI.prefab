@@ -193,7 +193,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3658288712262052799}
         m_TargetAssemblyTypeName: LayerUI, Assembly-CSharp
-        m_MethodName: SetLayerName
+        m_MethodName: UpdateLayerName
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
