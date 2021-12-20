@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PolygonWallTool : Tool
+public class PolygonWallTool : PlacerTool
 {
     public GameObject polyRoomElement;
     public List<Vector3> worldPoints;
@@ -23,14 +23,15 @@ public class PolygonWallTool : Tool
     public override void ToolSpaceBarAction()
     {
         base.ToolSpaceBarAction();
-        ValidateMesh();
+        ValidateObject();
     }
 
     private void AddPoint()
     {
         if (isCursorOverUI()) return;
+        if (!GameManager.layerManager.HasCurrentLayer()) return;
         Vector3 point = GameManager.sceneParameters.GetSnappedPosition(GameManager.mainCamera.ScreenToWorldPoint(Input.mousePosition), SnapType.Rounded);
-        point.y = 0; // TODO : put this depending on the current layer next y, when the layers will be done.
+        point.y = GameManager.layerManager.GetCurrentLayerYValue(); // TODO : put this depending on the current layer next y, when the layers will be done.
         worldPoints.Add(point);
         GameManager.geoDrawer.DrawPoint(point, Color.red, 0.25f);
         if (worldPoints.Count >= 2)
@@ -39,8 +40,9 @@ public class PolygonWallTool : Tool
         }
     }
 
-    private void ValidateMesh()
+    protected override void ValidateObject()
     {
+        base.ValidateObject();
         if (worldPoints.Count < 2) return;
 
         GameObject poly = GameObject.Instantiate(polyRoomElement);
@@ -49,7 +51,10 @@ public class PolygonWallTool : Tool
         PolyRoomElement room = poly.GetComponent<PolyRoomElement>();
         room.CreateRoom(worldPoints.ToArray());
 
+        GameManager.layerManager.PlaceObjectInCurrentLayer(room);
+
         worldPoints.Clear();
         GameManager.geoDrawer.CleanAllDrawings();
+
     }
 }

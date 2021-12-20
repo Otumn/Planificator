@@ -11,6 +11,7 @@ public class LayerUI : Entity
     public Image bgImage;
     public Color activeLayerColor;
     public Color inactiveLayerColor;
+    public Toggle visibilityToggle;
 
     private int layerID = -1;
 
@@ -61,6 +62,11 @@ public class LayerUI : Entity
         {
             bgImage.color = inactiveLayerColor;
         }
+    }
+
+    public void ToggleLayerVisibility()
+    {
+        GameManager.layerManager.ToggleLayerVisibility(this, visibilityToggle.isOn);
     }
 
     public int LayerID { get => layerID;}

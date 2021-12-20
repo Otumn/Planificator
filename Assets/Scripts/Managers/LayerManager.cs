@@ -11,6 +11,7 @@ public class LayerManager : Entity
     public RectTransform contentLayerBox;
     public GameObject layerUIPrefab;
     public Text currentLayerName;
+    public float heightPerObject = 0.001f;
 
     private Layer currentLayer;
     private List<Layer> layers = new List<Layer>();
@@ -153,14 +154,20 @@ public class LayerManager : Entity
         askingUI.SetLayerActive(true);
     }
 
-    public void ShowLayer(LayerUI askingUI)
+    public void PlaceObjectInCurrentLayer(SelectableElement element)
     {
-
+        element.transform.position = new Vector3(element.transform.position.x, GetCurrentLayerYValue(), element.transform.position.z);
+        currentLayer.elements.Add(element);
+        currentLayer.currentYValue += heightPerObject;
     }
 
-    public void HideLayer(LayerUI askingUI)
+    public void ToggleLayerVisibility(LayerUI askingUI, bool visible)
     {
-        
+        Layer l = GetLayerFromID(askingUI.LayerID);
+        for (int i = 0; i < l.elements.Count; i++)
+        {
+            l.elements[i].gameObject.SetActive(visible);
+        }
     }
 
     public void HideAllLayers()
@@ -181,7 +188,12 @@ public class LayerManager : Entity
 
     public float GetCurrentLayerYValue()
     {
-        return 0;
+        return currentLayer.currentYValue + currentLayer.sortingIndex;
+    }
+
+    public bool HasCurrentLayer()
+    {
+        return !(currentLayer == null);
     }
 
     #endregion
@@ -204,4 +216,5 @@ public class Layer
     public int iDIndex = -1;
     public LayerUI linkedUI; // this may an easier solution actually. When loading a save file, I'll juste have to count the number layer loaded, then give them each a UI, then update them, and boom.
     public float currentYValue = 0f;
+    public List<SelectableElement> elements = new List<SelectableElement>();
 }
