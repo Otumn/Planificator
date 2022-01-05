@@ -73,6 +73,7 @@ public class TransformTool : Tool
             if (hit.collider.gameObject.GetComponent<SelectableElement>() != null && hit.collider.gameObject.GetComponent<SelectableElement>() != SelectedEntity)
             {
                 SelectableElement clickedEnt = hit.collider.gameObject.GetComponent<SelectableElement>();
+                if (GameManager.layerManager.CurrentLayer.iDIndex != clickedEnt.GetHighestParent().savedLayerID) return;
                 if (SelectedEntity != null && clickedEnt != SelectedEntity)
                 {
                     SelectedEntity.UnSelect();
@@ -155,7 +156,6 @@ public class TransformTool : Tool
             Destroy(buffer.gameObject);
         }
     }
-
 }
 
 public enum GizmoType

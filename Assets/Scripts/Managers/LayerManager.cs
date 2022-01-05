@@ -94,7 +94,7 @@ public class LayerManager : Entity
             tempLayers[i].sortingIndex = i;
             tempLayers[i].linkedUI.UpdateLayerUIInfos(tempLayers[i]);
         }
-        currentLayer.linkedUI.SetLayerActive(true);
+        CurrentLayer.linkedUI.SetLayerActive(true);
     }
 
     public void ReArrangeLayers()
@@ -131,6 +131,10 @@ public class LayerManager : Entity
             currentLayer = layers[0];
             currentLayer.linkedUI.SetLayerActive(true);
         }
+        for (int i = 0; i < currentLayer.elements.Count; i++)
+        {
+            GameObject.Destroy(currentLayer.elements[i].gameObject);
+        }
         GameObject.Destroy(askingUI.gameObject);
         for (int i = 0; i < layers.Count; i++)
         {
@@ -150,7 +154,7 @@ public class LayerManager : Entity
             currentLayer.linkedUI.SetLayerActive(false);
         }
         currentLayer = GetLayerFromID(askingUI.LayerID);
-        currentLayerName.text = currentLayer.name;
+        currentLayerName.text = CurrentLayer.name;
         askingUI.SetLayerActive(true);
     }
 
@@ -158,6 +162,7 @@ public class LayerManager : Entity
     {
         element.transform.position = new Vector3(element.transform.position.x, GetCurrentLayerYValue(), element.transform.position.z);
         currentLayer.elements.Add(element);
+        element.GetHighestParent().savedLayerID = currentLayer.iDIndex;
         currentLayer.currentYValue += heightPerObject;
     }
 
@@ -196,6 +201,8 @@ public class LayerManager : Entity
         return !(currentLayer == null);
     }
 
+    public Layer CurrentLayer { get => currentLayer; }
+
     #endregion
 
     #region Entity calls
@@ -217,4 +224,12 @@ public class Layer
     public LayerUI linkedUI; // this may an easier solution actually. When loading a save file, I'll juste have to count the number layer loaded, then give them each a UI, then update them, and boom.
     public float currentYValue = 0f;
     public List<SelectableElement> elements = new List<SelectableElement>();
+}
+
+public class SavedLayer
+{
+    public string name = "Layer";
+    public int iDIndex = -1;
+    public int sortingIndex = -1;
+    public float currentYValue = 0f;
 }

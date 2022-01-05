@@ -6,6 +6,7 @@ public class SelectableElement : Entity
 {
     public MeshRenderer renderer;
     public SelectableElement parentElement;
+    public int savedLayerID = 0;
 
     public virtual void Select()
     {
@@ -32,5 +33,22 @@ public class SelectableElement : Entity
     public virtual void HideSelectionFeedback()
     {
         renderer.material.SetFloat("SelectionValue", 0f);
+    }
+
+    public SelectableElement GetHighestParent()
+    {
+        SelectableElement testedElement = this;
+        SelectableElement oldestElement = this;
+        while(oldestElement != null)
+        {
+            oldestElement = testedElement.parentElement;
+            if (oldestElement != null) testedElement = testedElement.parentElement;
+        }
+        return testedElement;
+    }
+
+    public SelectableElement[] GetSavedVersions()
+    {
+        return null;
     }
 }
